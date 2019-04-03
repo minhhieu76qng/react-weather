@@ -10,11 +10,11 @@ class CurrentWeatherDisplay extends Component {
         return (
             <div className="current-weather row pt-3 pb-3">
                 <div className="col-12">
-                    <div className="city-name">
+                    <div className="city-name mb-2">
                         {data.name}
                     </div>
-                    <div className="min-max-temperature">{data.main.temp_min} &deg; &nbsp; | &nbsp; {data.main.temp_max} &deg;</div>
-                    <div className="current-temperature">{data.main.temp} &deg; <sup>c</sup></div>
+                    <div className="min-max-temperature">{data.main.temp_min}&deg;&nbsp;|&nbsp;{data.main.temp_max}&deg;</div>
+                    <div className="current-temperature">{data.main.temp}&deg;<sup>C</sup></div>
 
                     <div className="weather-status">
                         <img src={env.IMAGE_WEATHER_LINK + data.weather[0].icon + '.png'} alt={data.weather[0].icon} />
@@ -27,8 +27,6 @@ class CurrentWeatherDisplay extends Component {
                             <img src={update} alt="Update weather" title="Update weather now" />
                         </button>
                     </div>
-
-                    
                 </div>
             </div>
         );

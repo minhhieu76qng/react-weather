@@ -5,7 +5,7 @@ class HourlyWeatherCard extends Component {
     render() {
         let data = this.props.data;
         return (
-            <div className='col-4'>
+            <div className='col-3'>
                 <div className="time">{data.dt}</div>
                 <div className="weather-image">
                     <img src={env.IMAGE_WEATHER_LINK + data.weather[0].icon + '.png'} alt={data.weather[0].icon}/>
