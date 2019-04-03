@@ -1,33 +1,84 @@
-.App {
-  text-align: center;
+*{
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
 
-.App-logo {
-  animation: App-logo-spin infinite 20s linear;
-  height: 40vmin;
-  pointer-events: none;
+
+.header h1{
+  font-size: 40px;
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+body .container{
+  max-width: 700px !important;
 }
 
-.App-link {
-  color: #61dafb;
+.current-weather{
+  background-color: #ECEFF1;
+  font-size: 20px;
 }
 
-@keyframes App-logo-spin {
-  from {
+.daily-weather{
+  background-color: #CFD8DC;
+}
+
+.hourly-weather{
+  background-color: lightSteelBlue;
+}
+
+.current-weather .current-temperature{
+  font-size: 30px;
+  font-weight: 500;
+  margin-top: 10px;
+}
+
+.current-weather .weather-status > img, .current-weather .weather-status > .weather-text{
+  display: inline-block;
+}
+
+.current-weather .weather-status > img{
+  width: 75px;
+}
+
+.current-weather .weather-status > .weather-text{
+  font-size: 22px;
+  font-weight: 500;
+}
+
+.last-update{
+  position: relative;
+}
+
+.last-update .btn-update-weather{
+  position: absolute;
+  right: 20px;
+  top: 50%;
+  transform: translateY(-50%);
+
+  width: 30px;
+  height: 30px;
+  cursor: pointer;
+  background-color: transparent;
+  outline: 0;
+  border: 0;
+  transition: all .3s ease;
+}
+
+.btn-update-weather.active img{
+  outline: 0;
+  
+  animation: rotateUpdate .7s;
+}
+
+@keyframes rotateUpdate{
+  from{
     transform: rotate(0deg);
   }
-  to {
-    transform: rotate(360deg);
+  to{
+    transform: rotate(-180deg);
   }
+}
+
+.btn-update-weather > img{
+  max-width: 100%;
 }
