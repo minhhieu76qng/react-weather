@@ -8,6 +8,7 @@ class DailyWeatherDisplay extends Component {
 
     render() {
         let { data } = this.props;
+        console.log(data);
         return (
             <div className="daily-weather row pt-3 pb-3">
                 <div className="col">

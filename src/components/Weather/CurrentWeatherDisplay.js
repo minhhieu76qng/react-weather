@@ -2,8 +2,6 @@ import React, { Component } from 'react';
 
 import update from '../../image/update.png'
 
-import env from '../../config';
-
 class CurrentWeatherDisplay extends Component {
     render() {
         let data = this.props.dataWeather;
@@ -13,12 +11,12 @@ class CurrentWeatherDisplay extends Component {
                     <div className="city-name mb-2">
                         {data.name}
                     </div>
-                    <div className="min-max-temperature">{data.main.temp_min}&deg;&nbsp;|&nbsp;{data.main.temp_max}&deg;</div>
-                    <div className="current-temperature">{data.main.temp}&deg;<sup>C</sup></div>
+                    <div className="min-max-temperature">{data.min_temp}&deg;&nbsp;|&nbsp;{data.max_temp}&deg;</div>
+                    <div className="current-temperature">{data.temp}&deg;<sup>C</sup></div>
 
                     <div className="weather-status">
-                        <img src={env.IMAGE_WEATHER_LINK + data.weather[0].icon + '.png'} alt={data.weather[0].icon} />
-                        <div className="weather-text">{data.weather[0].main}</div>
+                        <img src={data.icon} alt={data.icon} />
+                        <div className="weather-text">{data.status}</div>
                     </div>
 
                     <div className="last-update">

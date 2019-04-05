@@ -3,7 +3,83 @@ import CurrentWeatherDisplay from './Weather/CurrentWeatherDisplay';
 import DailyWeatherDisplay from './Weather/DailyWeatherDisplay';
 import HourlyWeatherDisplay from './Weather/HourlyWeatherDisplay';
 
+import GeolocationAPI from './Services/GeolocationAPI';
+import WeatherAPI from './Services/WeatherAPI';
+
+const geolocation = new GeolocationAPI();
+const weather = new WeatherAPI();
+
 class WeatherDashboard extends Component {
+   constructor(props) {
+      super(props);
+
+      this.state = {
+         isLoading: true,
+         errMessage: '',
+
+         dataCurrentWeather: null,
+         dataDailyWeather: null,
+         dataHourlyWeather: null
+      }
+   }
+
+   componentDidMount() {
+      geolocation.getCurrentPosition()
+         .then(pos => {
+            this.getCurrentWeather(pos);
+            this.getDailyWeather(pos);
+            this.getHourlyWeather(pos);
+         })
+         .catch(err => {
+            this.setState({
+               errMessage: err
+            })
+         });
+   }
+
+   getCurrentWeather = (pos) => {
+      weather.getCurrentWeatherByPosition(pos)
+         .then(data => {
+            this.setState({
+               dataCurrentWeather: data
+            });
+         })
+         .catch(err => {
+            this.setState({
+               errMessage: err
+            })
+         });
+   }
+
+   getDailyWeather = (pos) => {
+      weather.getDailyWeatherByPosition(pos)
+         .then(data => {
+            this.setState({
+               dataDailyWeather: data
+            });
+         })
+         .catch(err => {
+            this.setState({
+               errMessage: err
+            })
+         });
+   }
+
+   getHourlyWeather = (pos) => {
+      weather.getHourlyWeatherByPosition(pos)
+         .then(data => {
+            this.setState({
+               dataHourlyWeather: data
+            });
+         })
+         .catch(err => {
+            this.setState({
+               errMessage: err
+            })
+         });
+   }
+
+
    render() {
       let item = {
          "coord": {
@@ -3358,15 +3434,40 @@ class WeatherDashboard extends Component {
             "country": "RU"
          }
       };
+
+
       return (
 
-         <div className="container text-center">
-            <CurrentWeatherDisplay dataWeather={item} last_update={"fddfhjsad"} />
+         !(this.state.dataCurrentWeather === null || this.state.dataDailyWeather === null || this.state.dataHourlyWeather === null) ?
+            (
 
-            <DailyWeatherDisplay data={dataDaily} />
+               <div className="container text-center">
+                  <CurrentWeatherDisplay dataWeather={this.state.dataCurrentWeather} last_update={"fddfhjsad"} />
 
-            <HourlyWeatherDisplay data={dataHourly} />
-         </div>
+                  <DailyWeatherDisplay data={dataDaily} />
+
+                  <HourlyWeatherDisplay data={dataHourly} />
+               </div>
+            )
+            :
+            (
+               this.state.isLoading === true ?
+                  (
+                     <div className="spinner text-center mt-5">
+                        <i className="fa fa-spinner fa-spin fa-5x fa-fw" aria-hidden="true"></i>
+                     </div>
+                  )
+                  :
+                  (
+                     <div className="jumbotron jumbotron-fluid text-center">
+                        <div className="container">
+                           <h1 className="display-3">Something went wrong!</h1>
+                           <hr className="my-2" />
+                           <p>{this.state.errMessage}</p>
+                        </div>
+                     </div>
+                  )
+            )
 
       );
    }
